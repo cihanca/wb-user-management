@@ -1,19 +1,14 @@
 package com.wb.user.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Data
-public class UserStations {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private UUID uid;
-    private boolean deleted;
+public class UserStations extends BaseEntity {
     private String status;
     private Long userId;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -21,8 +16,4 @@ public class UserStations {
     private Station station;
     private boolean isBaseStation;
     private String timeZone;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private LocalDateTime updateDate;
-    private String updatedBy;
 }

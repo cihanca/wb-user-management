@@ -1,20 +1,16 @@
 package com.wb.user.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Data
-public class Contracts {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private UUID uid;
-    private boolean deleted;
+public class Contracts extends BaseEntity {
     private String status;
     private Long airlineId;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,8 +19,4 @@ public class Contracts {
     private Long handlerId;
     private LocalDate contractStartDate;
     private LocalDate contractEndDate;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private LocalDateTime updateDate;
-    private String updatedBy;
 }
