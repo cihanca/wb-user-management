@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="202210210001" author="cihanca">
+
+        <createTable tableName="role">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="role_id_pk" nullable="false" />
+            </column>
+            <column name="uid" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="create_date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="update_date" type="datetime" />
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(50)" />
+            <column name="deleted" type="boolean" />
+            <column name="name" type="varchar(50)" />
+            <column name="description" type="varchar(250)" />
+            <column name="application_type" type="varchar(20)" />
+        </createTable>
+
+        <addAutoIncrement tableName="role" columnName="id" columnDataType="bigint" startWith="1" />
+        <createSequence sequenceName="hibernate_sequence" startValue="1" />
+
+        <rollback>
+            <dropTable tableName="role" />
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

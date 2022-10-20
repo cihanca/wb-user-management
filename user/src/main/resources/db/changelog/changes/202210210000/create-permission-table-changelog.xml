@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="202210210002" author="cihanca">
+
+        <createTable tableName="permission">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="permission_id_pk" nullable="false" />
+            </column>
+            <column name="uid" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="deleted" type="boolean" />
+            <column name="create_date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="update_date" type="datetime" />
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(50)" />
+            <column name="name" type="varchar(50)" />
+            <column name="description" type="varchar(250)" />
+        </createTable>
+
+        <addAutoIncrement tableName="permission" columnName="id" columnDataType="bigint" startWith="1" />
+        <createSequence sequenceName="hibernate_sequence" startValue="1" />
+
+        <rollback>
+            <dropTable tableName="permission" />
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
