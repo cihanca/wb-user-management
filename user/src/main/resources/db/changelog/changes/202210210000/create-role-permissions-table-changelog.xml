@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="202210210003" author="cihanca">
+
+        <createTable tableName="role_permissions">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="role_permissions_id_pk" nullable="false" />
+            </column>
+            <column name="uid" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="deleted" type="boolean" />
+            <column name="create_date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="update_date" type="datetime" />
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(50)" />
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" notNullConstraintName="role_permissions_role_id_fk" />
+            </column>
+            <column name="permission_id" type="bigint">
+                <constraints nullable="false" notNullConstraintName="role_permissions_permission_id_fk" />
+            </column>
+        </createTable>
+
+        <addAutoIncrement tableName="role_permissions" columnName="id" columnDataType="bigint" startWith="1" />
+        <createSequence sequenceName="hibernate_sequence" startValue="1" />
+        <addForeignKeyConstraint baseTableName="role_permissions" baseColumnNames="role_id" constraintName="role_permissions_role_id_fk" referencedTableName="role" referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="role_permissions" baseColumnNames="permission_id" constraintName="role_permissions_permission_id_fk" referencedTableName="permission" referencedColumnNames="id" />
+
+        <rollback>
+            <dropTable tableName="role_permissions" />
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

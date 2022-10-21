@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="202210210004" author="cihanca">
+
+        <createTable tableName="auth_transaction">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="auth_transaction_id_pk" nullable="false" />
+            </column>
+            <column name="uid" type="uuid">
+                <constraints nullable="false" />
+            </column>
+            <column name="deleted" type="boolean" />
+            <column name="create_date" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="update_date" type="datetime" />
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_by" type="varchar(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" notNullConstraintName="auth_transaction_user_id_fk" />
+            </column>
+            <column name="last_login_time" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="transaction_id" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="client_id" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="client_ip_address" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addAutoIncrement tableName="auth_transaction" columnName="id" columnDataType="bigint" startWith="1" />
+        <createSequence sequenceName="hibernate_sequence" startValue="1" />
+        <addForeignKeyConstraint baseTableName="auth_transaction" baseColumnNames="user_id" constraintName="auth_transaction_user_id_fk" referencedTableName="user" referencedColumnNames="id" />
+
+        <rollback>
+            <dropTable tableName="auth_transaction" />
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
