@@ -1,23 +1,21 @@
 package com.wb.user.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-public class RolePermissions extends BaseEntity {
+public class RolePermissions extends BaseCompositeEntity {
 
-    private String status;
+    @EmbeddedId
+    private RolePermissionId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    @MapsId("roleId")
     private Role role;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "permission_id")
+    @MapsId("permissionId")
     private Permission permission;
 
 }

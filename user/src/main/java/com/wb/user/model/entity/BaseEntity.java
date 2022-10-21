@@ -1,5 +1,6 @@
 package com.wb.user.model.entity;
 
+import com.wb.user.enums.Status;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,12 +12,13 @@ import java.util.UUID;
 
 @MappedSuperclass
 @Data
-public class BaseEntity {
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private UUID uid;
     private boolean deleted;
+    private Status status;
     private LocalDateTime createDate;
     private String createdBy;
     private LocalDateTime updateDate;

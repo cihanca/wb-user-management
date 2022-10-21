@@ -1,7 +1,6 @@
 package com.wb.user.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -10,10 +9,9 @@ import java.time.LocalDateTime;
 @Data
 public class AuthTransaction extends BaseEntity {
 
-    //TODO Convert to Entity
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "user_id")
-    private String user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private LocalDateTime lastLoginTime;
     private String transactionId;
